@@ -18,17 +18,18 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
-     - name: Clone jpf-core
-        run: |
-          git clone https://github.com/javapathfinder/jpf-core.git /tmp/jpf-core
-          cd /tmp/jpf-core
-          ./gradlew buildJars
-      - name: Compile JPF sources related
-        run: |
-          find app/src/main/java/pcd/lab02/ -name "*.java" | xargs javac -d app/bin -cp /tmp/jpf-core/build/jpf-classes.jar
+    - name: Clone jpf-core
+      run: |
+        git clone https://github.com/javapathfinder/jpf-core.git /tmp/jpf-core
+        cd /tmp/jpf-core
+        ./gradlew buildJars
+
+    - name: Compile JPF sources related
+      run: |
+        find app/src/main/java/pcd/lab02/ -name "*.java" | xargs javac -d app/bin -cp /tmp/jpf-core/build/jpf-classes.jar
 
     - name: Run JPF on Module
       run: |
-          cat facade/example.jpf
-          echo "JPF: facade/example.jpf"
-          java -jar /tmp/jpf-core/build/RunJPF.jar facade/example.jpf
+        cat facade/example.jpf
+        echo "JPF: facade/example.jpf"
+        java -jar /tmp/jpf-core/build/RunJPF.jar facade/example.jpf
