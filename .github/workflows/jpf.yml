@@ -18,19 +18,6 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
-    # - name: Clone JPF
-    #   run: git clone https://github.com/javapathfinder/jpf-core.git
-
-    # - name: Build JPF
-    #   run: |
-    #     cd jpf-core
-    #     ./gradlew build
-
-    # - name: Set up JPF environment variables
-    #   run: |
-    #     echo "JPF_HOME=$GITHUB_WORKSPACE/jpf-core" >> $GITHUB_ENV
-    #     echo "PATH=\$PATH:$GITHUB_WORKSPACE/jpf-core/bin" >> $GITHUB_ENV
-
      - name: Clone jpf-core
         run: |
           git clone https://github.com/javapathfinder/jpf-core.git /tmp/jpf-core
@@ -41,10 +28,6 @@ jobs:
           find app/src/main/java/pcd/lab02/ -name "*.java" | xargs javac -d app/bin -cp /tmp/jpf-core/build/jpf-classes.jar
 
     - name: Run JPF on Module
-      # run: jpf facade/example.jpf
-      # env:
-      #   JPF_HOME: ${{ env.JPF_HOME }}
-      #   PATH: ${{ env.PATH }}
       run: |
           cat facade/example.jpf
           echo "JPF: facade/example.jpf"
