@@ -1,0 +1,38 @@
+name: Run JPF
+
+on:
+  push:
+
+jobs:
+  run-jpf:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Clone JPF
+      run: git clone https://github.com/javapathfinder/jpf-core.git
+
+    - name: Build JPF
+      run: |
+        cd jpf-core
+        ./gradlew build
+
+    - name: Set up JPF environment variables
+      run: |
+        echo "JPF_HOME=$GITHUB_WORKSPACE/jpf-core" >> $GITHUB_ENV
+        echo "PATH=\$PATH:$GITHUB_WORKSPACE/jpf-core/bin" >> $GITHUB_ENV
+
+    - name: Run JPF on Module
+      run: jpf facade/example.jpf
+      env:
+        JPF_HOME: ${{ env.JPF_HOME }}
+        PATH: ${{ env.PATH }}

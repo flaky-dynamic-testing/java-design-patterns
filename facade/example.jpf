@@ -1,0 +1,8 @@
+
+# Configuration for Java Pathfinder (JPF)
+# Target directory containing the compiled classes for the specific module
+target=facade/target/classes
+
+# The main class to be analyzed by JPF
+classpath=facade/target/classes
+class=com.iluwatar.facade.App
