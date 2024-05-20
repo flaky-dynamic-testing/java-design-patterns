@@ -26,10 +26,11 @@ jobs:
 
     - name: Compile JPF sources related
       run: |
-        find facade/src/main/java/ -name "*.java" | xargs javac -d facade/bin -cp /tmp/jpf-core/build/jpf-classes.jar
+        mkdir -p facade/bin
+        find facade/src/main/java/ -name "*.java" | xargs javac -d facade/bin -cp /tmp/jpf-core/build/jpf-classes.jar --enable-preview --release 11
 
     - name: Run JPF on Module
       run: |
         cat facade/example.jpf
         echo "JPF: facade/example.jpf"
-        java -jar /tmp/jpf-core/build/RunJPF.jar facade/example.jpf
+        java -jar /tmp/jpf-core/build/RunJPF.jar facade/example.jpf --enable-preview
