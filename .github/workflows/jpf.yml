@@ -26,7 +26,7 @@ jobs:
 
     - name: Compile JPF sources related
       run: |
-        find app/src/main/java/pcd/lab02/ -name "*.java" | xargs javac -d app/bin -cp /tmp/jpf-core/build/jpf-classes.jar
+        find facade/src/main/java/ -name "*.java" | xargs javac -d facade/bin -cp /tmp/jpf-core/build/jpf-classes.jar
 
     - name: Run JPF on Module
       run: |
